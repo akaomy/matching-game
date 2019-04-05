@@ -3,7 +3,7 @@
 
 <p>current problems to do:</p>
 <ul>
-  <li>cards are not shuffling</li>
+  <li>[solved] cards are not shuffling</li>
   <li>you can open more than 2 cards</li>
   <li>cards that are opened don’t close back</li>
   <li>cards that are matched don’t change color</li>
