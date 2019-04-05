@@ -1,40 +1,36 @@
-/*
- * Create a list that holds all of your cards
- */
- let allCards = document.querySelectorAll('.card');
+let allCards = document.querySelectorAll('.card');
+const cardsParent = document.querySelector('.deck');
 
-/*
- * Display the cards on the page
- *   - shuffle the list of cards using the provided "shuffle" method below
- *   - loop through each card and create its HTML
- *   - add each card's HTML to the page
- */
 
-// Shuffle function from http://stackoverflow.com/a/2450976
+function removeOpenAndShow(card) {
+  card.classList.remove("open", "show");
+}
+
+function addOpenAndShow(card) {
+  card.classList.add("open", "show");
+}
+
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
-
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
+    for (let i = array.length - 1; i > 0; i--) {
+        const randomNum = Math.floor(Math.random() * (i + 1));
+        [array[i], array[randomNum]] = [array[randomNum], array[i]];
     }
-
     return array;
 }
 
-let shuffledCards = shuffle(allCards);  // shuffled and stored array of cards
+shuffle(allCards);
+
+//convert NodeList to an array
+let shuffledCards = shuffle([...allCards]);
 
 //clearing what's in the DOM by accessing the parent element
-for (let i = 0; i <= allCards.length; i ++) {
-    allCards[i].remove();
+for (let i = 0; i < allCards.length; i ++) {
+    cardsParent.removeChild(allCards[i]);
 }
+
 //re-applying them to the parent in their new order
-const cardsParent = document.querySelector('.deck');
-for (let i = 0; i <= shuffledCards.length; i ++ ) {
-	cardsParent2.appendChild(shuffledCards[i]);
+for (let i = 0; i < shuffledCards.length; i ++ ) {
+	cardsParent.appendChild(shuffledCards[i]);
 }
 
 /*
@@ -47,16 +43,6 @@ for (let i = 0; i <= shuffledCards.length; i ++ ) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
-let allCards = document.querySelectorAll('.card');
-
-function removeOpenAndShow(card) {
-  card.classList.remove("open", "show");
-}
-
-function addOpenAndShow(card) {
-  card.classList.add("open", "show");
-}
 
 //close cards
 allCards.forEach(function(card) {
