@@ -61,7 +61,6 @@ shuffledCards.forEach(function(card) {
 
     selectedCards.push(card);
 
-
     if (selectedCards.length <= 2 ) {
       addOpenAndShow(card);
 
@@ -78,17 +77,20 @@ shuffledCards.forEach(function(card) {
           if (firstSelectedCard === secondSelectedCard) {
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
-             selectedCards.pop();
-             selectedCards.pop();
+            selectedCards.pop();
+            selectedCards.pop();
             } else {
               // if cards didn't match:
               // cards will close 
               // and selectedCards array will be emptied
               setTimeout(function() {
                 selectedCards.forEach(function(card) {
-                  removeOpenAndShow(card);
+                  removeOpenAndShow(selectedCards[0]);
+                  removeOpenAndShow(selectedCards[1]); 
+                  selectedCards.pop();
+                  selectedCards.pop();
                 })
-              }, 1000);
+              }, 900);
           }
        }
      }
