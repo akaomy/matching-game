@@ -59,21 +59,21 @@ let selectedCards = [];
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function(e) {
 
-    selectedCards.push(card);
+    //Check first if there are any card is in the array
+    if (selectedCards.indexOf(card) === -1) selectedCards.push(card)
 
-    if (selectedCards.length <= 2 ) {
-      addOpenAndShow(card);
+      // if there are less than 2 cards are open
+      if (selectedCards.length <= 2 ) {
+        addOpenAndShow(card);
 
-      // if there are two cards are open
-      if (selectedCards.length === 2) {
+        // if there are two cards are open
+        if (selectedCards.length === 2) {
           let firstSelectedCard = selectedCards[0].firstElementChild.className;
-          console.log(firstSelectedCard);
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
-          console.log(secondSelectedCard);
-          // if cards matched
+          // and if cards have been matched
           // change the color of cards
-          // keep them open, but empty the selected cards array 
-          // to allow user to continue the game
+          // keep them open 
+          // but empty the selected cards array to allow user to continue the game
           if (firstSelectedCard === secondSelectedCard) {
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
@@ -92,7 +92,7 @@ shuffledCards.forEach(function(card) {
                 })
               }, 900);
           }
-       }
+       } 
      }
   });
 });
