@@ -37,6 +37,22 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
 	cardsParent.appendChild(shuffledCards[i]);
 }
 
+/*
+ * set up the event listener for a card. If a card is clicked:
+ *  - display the card's symbol (put this functionality in another function that you call from this one)
+ *  - add the card to a *list* of "open" cards (put this functionality in another function that you call 
+ from this one)
+ *  - if the list already has another card, check to see if the two cards match
+ *    + if the cards do match, lock the cards in the open position (put this functionality in another 
+ function that you call from this one)
+ *    + if the cards do not match, remove the cards from the list and hide the card's symbol (put this 
+ functionality in another function that you call from this one)
+ *    + increment the move counter and display it on the page (put this functionality in another function 
+ that you call from this one)
+ *    + if all cards have matched, display a message with the final score (put this functionality in another 
+ function that you call from this one)
+ */
+
 
 let selectedCards = [];
 
@@ -45,19 +61,29 @@ shuffledCards.forEach(function(card) {
 
     selectedCards.push(card);
 
-     if (selectedCards.length <= 2 ) {
-       addOpenAndShow(card);
 
-       if (selectedCards.length === 2) {
+    if (selectedCards.length <= 2 ) {
+      addOpenAndShow(card);
+
+      // if there are two cards are open
+      if (selectedCards.length === 2) {
           let firstSelectedCard = selectedCards[0].firstElementChild.className;
           console.log(firstSelectedCard);
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
           console.log(secondSelectedCard);
+          // if cards matched
+          // change the color of cards
+          // keep them open, but empty the selected cards array 
+          // to allow user to continue the game
           if (firstSelectedCard === secondSelectedCard) {
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
+             selectedCards.pop();
+             selectedCards.pop();
             } else {
-              console.log('cards did not matched');
+              // if cards didn't match:
+              // cards will close 
+              // and selectedCards array will be emptied
               setTimeout(function() {
                 selectedCards.forEach(function(card) {
                   removeOpenAndShow(card);
