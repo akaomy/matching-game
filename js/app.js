@@ -21,6 +21,23 @@ function shuffle(array) {
     return array;
 }
 
+const showCongratPopup = () => {
+  let showPopup = document.querySelector("#show-popup");
+  let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+
+  popupTransparentBkg.style.display = "block";
+}
+
+const closeCongratPopup = () => {
+  let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+  let closePopup = document.querySelector("#close-popup");
+
+  closePopup.addEventListener('click', function() {
+    popupTransparentBkg.style.display = "none";
+  });
+}
+
+
 shuffle(allCards);
 
 // convert NodeList to an array
@@ -49,6 +66,8 @@ When two cards are opened check if they have same class:
 let selectedCards = [];
 let matchedCardsPairs = [];
 
+
+
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
@@ -64,56 +83,30 @@ shuffledCards.forEach(function(card) {
           if (firstSelectedCard === secondSelectedCard) {
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
-            // put them into an array of matched pair cards
+            // put matched cards into an array of matched cards pairs
             matchedCardsPairs.push(selectedCards[0]);
-            matchedCardsPairs.push(selectedCards[1]);            
-            console.log(matchedCardsPairs.length);
-            if (matchedCardsPairs.length === 16) {
-                let showPopup = document.querySelector("#show-popup");
-                let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-                let closePopup = document.querySelector("#close-popup");
+            matchedCardsPairs.push(selectedCards[1]);  
 
-                popupTransparentBkg.style.display = "block";
+              if (matchedCardsPairs.length === 16) {
+                  showCongratPopup();
+                  closeCongratPopup();
+              }
+                selectedCards.pop();
+                selectedCards.pop();
 
-                closePopup.addEventListener('click', function() {
-                  popupTransparentBkg.style.display = "none";
-                });
-            }
-            selectedCards.pop();
-            selectedCards.pop();
-
-            } else {
+              } else {
 
               setTimeout(function() {
-                selectedCards.forEach(function(card) {
-
+                selectedCards.forEach(function() {
                   removeOpenAndShow(selectedCards[0]);
                   removeOpenAndShow(selectedCards[1]); 
                   selectedCards.pop();
                   selectedCards.pop();
                 })
-
               }, 500);
           }
        } 
      }
   });
 });
-
-/*
-Congrat popup
-*/
-// let showPopup = document.querySelector("#show-popup");
-// let closePopup = document.querySelector("#close-popup");
-// let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-
-// showPopup.addEventListener('click', function(evt) {
-//   evt.preventDefault();
-//   popupTransparentBkg.style.display = "block";
-// });
-
-// closePopup.addEventListener('click', function(evt) {
-//   evt.preventDefault();
-//   popupTransparentBkg.style.display = "none";
-// });
 
