@@ -1,19 +1,19 @@
 let allCards = document.querySelectorAll('.card');
 const cardsParent = document.querySelector('.deck');
 
-function removeOpenAndShow(card) {
+const removeOpenAndShow = card => {
   card.classList.remove("open", "show");
 }
 
-function addOpenAndShow(card) {
+const addOpenAndShow = card => {
   card.classList.add("open", "show");
 }
 
-function cardsMatched(card) {
+const cardsMatched = card => {
   card.classList.add('match');
 }
 
-function shuffle(array) {
+const shuffle = array => {
     for (let i = array.length - 1; i > 0; i--) {
         const randomNum = Math.floor(Math.random() * (i + 1));
         [array[i], array[randomNum]] = [array[randomNum], array[i]];
@@ -24,17 +24,36 @@ function shuffle(array) {
 const showCongratPopup = () => {
   let showPopup = document.querySelector("#show-popup");
   let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-
   popupTransparentBkg.style.display = "block";
 }
 
 const closeCongratPopup = () => {
   let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
   let closePopup = document.querySelector("#close-popup");
-
   closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
   });
+}
+
+// starts time counter,
+// starts opened pairs of cards counter
+const startGame = () => {
+  return true;
+}
+
+// counts how many pair of cards have been open 
+const scoreCounter = () => {
+  return true;
+}
+
+// stops time counter once all cards has been matched
+// output in pop up window: how much time left, score 
+const gameOver = () => {
+  return true;
+}
+
+const resetGame = () => {
+  return true;
 }
 
 
@@ -65,8 +84,6 @@ When two cards are opened check if they have same class:
 */
 let selectedCards = [];
 let matchedCardsPairs = [];
-
-
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
