@@ -1,16 +1,6 @@
 let allCards = document.querySelectorAll('.card');
 const cardsParent = document.querySelector('.deck');
 
-/* congrat popup */
-// let showPopup = document.querySelector("#show-popup");
-let closePopup = document.querySelector("#close-popup");
-// let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-
-closePopup.addEventListener('click', function(evt) {
-  evt.preventDefault();
-  popupTransparentBkg.style.display = "none";
-});
-
 function removeOpenAndShow(card) {
   card.classList.remove("open", "show");
 }
@@ -45,7 +35,6 @@ for (let i = 0; i < allCards.length; i ++) {
 for (let i = 0; i < shuffledCards.length; i ++ ) {
 	cardsParent.appendChild(shuffledCards[i]);
 }
-
 
 /*
 Main game logic:
@@ -82,12 +71,14 @@ shuffledCards.forEach(function(card) {
             if (matchedCardsPairs.length === 16) {
                 let showPopup = document.querySelector("#show-popup");
                 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-                showPopup.addEventListener('click', function(evt) {
-                evt.preventDefault();
+                let closePopup = document.querySelector("#close-popup");
+
                 popupTransparentBkg.style.display = "block";
-              });
+
+                closePopup.addEventListener('click', function() {
+                  popupTransparentBkg.style.display = "none";
+                });
             }
-            matchedCardsPairs
             selectedCards.pop();
             selectedCards.pop();
 
