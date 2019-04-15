@@ -38,6 +38,9 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
 }
 
 
+/*
+Main game logic:
+*/
 let selectedCards = [];
 
 shuffledCards.forEach(function(card) {
@@ -74,5 +77,22 @@ shuffledCards.forEach(function(card) {
        } 
      }
   });
+});
+
+/*
+Congrat popup
+*/
+let showPopup = document.querySelector("#show-popup");
+let closePopup = document.querySelector("#close-popup");
+let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+
+showPopup.addEventListener('click', function(evt) {
+  evt.preventDefault();
+  popupTransparentBkg.style.display = "block";
+});
+
+closePopup.addEventListener('click', function(evt) {
+  evt.preventDefault();
+  popupTransparentBkg.style.display = "none";
 });
 
