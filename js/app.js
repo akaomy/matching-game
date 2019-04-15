@@ -1,6 +1,15 @@
 let allCards = document.querySelectorAll('.card');
 const cardsParent = document.querySelector('.deck');
 
+/* congrat popup */
+// let showPopup = document.querySelector("#show-popup");
+let closePopup = document.querySelector("#close-popup");
+// let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+
+closePopup.addEventListener('click', function(evt) {
+  evt.preventDefault();
+  popupTransparentBkg.style.display = "none";
+});
 
 function removeOpenAndShow(card) {
   card.classList.remove("open", "show");
@@ -40,8 +49,16 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
 
 /*
 Main game logic:
+Upon initial click check if the array selectedCards contains any cards(items) in it:
+- if there are no open cards: add one
+Upon each next click check if there are 1 or 2 cards are opened:
+- open them, and check if they have same class
+When two cards are opened check if they have same class:
+- if they are: add class 'match'
+- put them into an array of matched cards
 */
 let selectedCards = [];
+let matchedCardsPairs = [];
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
@@ -58,6 +75,19 @@ shuffledCards.forEach(function(card) {
           if (firstSelectedCard === secondSelectedCard) {
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
+            // put them into an array of matched pair cards
+            matchedCardsPairs.push(selectedCards[0]);
+            matchedCardsPairs.push(selectedCards[1]);            
+            console.log(matchedCardsPairs.length);
+            if (matchedCardsPairs.length === 16) {
+                let showPopup = document.querySelector("#show-popup");
+                let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+                showPopup.addEventListener('click', function(evt) {
+                evt.preventDefault();
+                popupTransparentBkg.style.display = "block";
+              });
+            }
+            matchedCardsPairs
             selectedCards.pop();
             selectedCards.pop();
 
@@ -72,7 +102,7 @@ shuffledCards.forEach(function(card) {
                   selectedCards.pop();
                 })
 
-              }, 900);
+              }, 500);
           }
        } 
      }
@@ -82,17 +112,17 @@ shuffledCards.forEach(function(card) {
 /*
 Congrat popup
 */
-let showPopup = document.querySelector("#show-popup");
-let closePopup = document.querySelector("#close-popup");
-let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+// let showPopup = document.querySelector("#show-popup");
+// let closePopup = document.querySelector("#close-popup");
+// let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 
-showPopup.addEventListener('click', function(evt) {
-  evt.preventDefault();
-  popupTransparentBkg.style.display = "block";
-});
+// showPopup.addEventListener('click', function(evt) {
+//   evt.preventDefault();
+//   popupTransparentBkg.style.display = "block";
+// });
 
-closePopup.addEventListener('click', function(evt) {
-  evt.preventDefault();
-  popupTransparentBkg.style.display = "none";
-});
+// closePopup.addEventListener('click', function(evt) {
+//   evt.preventDefault();
+//   popupTransparentBkg.style.display = "none";
+// });
 
