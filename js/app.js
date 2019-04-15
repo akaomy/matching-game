@@ -44,7 +44,7 @@ Main game logic:
 let selectedCards = [];
 
 shuffledCards.forEach(function(card) {
-  card.addEventListener('click', function(e) {
+  card.addEventListener('click', function() {
 
     if (selectedCards.indexOf(card) === -1) {selectedCards.push(card)}
 
