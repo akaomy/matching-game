@@ -36,8 +36,7 @@ const closeCongratPopup = () => {
 }
 
 const startGame = () => {
-  // clear open and 
-  // Once we click on the any first card timer starts
+  // start time once we click on the any first card
   return true; 
 }
 
@@ -110,9 +109,10 @@ shuffledCards.forEach(function(card) {
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
 
           if (firstSelectedCard === secondSelectedCard) {
+            // put each matched card onto a selected cards array
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
-            // put matched cards into an array of matched cards pairs
+            // and put matched cards into an array of matched cards pairs
             matchedCardsPairs.push(selectedCards[0]);
             matchedCardsPairs.push(selectedCards[1]);  
 
@@ -135,7 +135,9 @@ shuffledCards.forEach(function(card) {
                 })
               }, 500);
           }
-       } 
+        } else { // if the cards don't match
+
+        }
      }
   });
 });
