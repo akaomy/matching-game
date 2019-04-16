@@ -29,32 +29,40 @@ const showCongratPopup = () => {
 
 const closeCongratPopup = () => {
   let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-  let closePopup = document.querySelector("#close-popup");
+  let closePopup = document.querySelector(".close-popup");
   closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
   });
 }
 
-// starts time counter,
-// starts opened pairs of cards counter
 const startGame = () => {
-  return true;
+  // clear open and 
+  // Once we click on the any first card timer starts
+  return true; 
 }
 
-// counts how many pair of cards have been open 
-const scoreCounter = () => {
-  return true;
-}
-
-// stops time counter once all cards has been matched
-// output in pop up window: how much time left, score 
 const gameOver = () => {
+  // stops timer
+  // display final score and and time in pop up window
   return true;
 }
 
+// when clicking on the button on pop up window 'PLAY AGAIN'
+// or when clicking on restart icon under the game title '.restart'
 const resetGame = () => {
+  // clear timer
+  // timeCounter = 0;
+  // clear score
+  // gameScore = 0;
+  // clear opened and matched cards
   return true;
 }
+
+const scoreCounter = () => {
+  // start score counter to count how many pair of cards have been open 
+  return true;
+}
+
 
 
 shuffle(allCards);
@@ -88,7 +96,11 @@ let matchedCardsPairs = [];
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
-    if (selectedCards.indexOf(card) === -1) {selectedCards.push(card)}
+    // if this card is already inside the array, it will return index of it
+    // if it's not, it will push the card in the array
+    if (selectedCards.indexOf(card) === -1) {
+      selectedCards.push(card); 
+    }
 
       if (selectedCards.length <= 2 ) {
         addOpenAndShow(card);
@@ -105,6 +117,7 @@ shuffledCards.forEach(function(card) {
             matchedCardsPairs.push(selectedCards[1]);  
 
               if (matchedCardsPairs.length === 16) {
+                  gameOver();
                   showCongratPopup();
                   closeCongratPopup();
               }
