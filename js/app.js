@@ -6,11 +6,11 @@ let closePopup = document.querySelector(".close-popup");
 
 
 const removeOpenAndShow = card => {
-  card.classList.remove("open", "show");
+  card.classList.remove("open", "show", "disabled");
 }
 
 const addOpenAndShow = card => {
-  card.classList.add("open", "show");
+  card.classList.add("open", "show", "disabled");
 }
 
 const cardsMatched = card => {
@@ -31,16 +31,13 @@ const showCongratPopup = () => {
 
 closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
-  });
+});
 
 const startGame = () => {
-  // start time once we click on the any first card
   let counter = 0;
   timerID = setInterval(function() {
     counter += 1;
   });
-  // console.log(`Timer id ${timerID}`); 
-  // console.log(`Counter ${counter}`);
   return [counter, timerID];
 }
 

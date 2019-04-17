@@ -78,6 +78,10 @@ h1 {
     font-size: 45px;
 }
 
+.deck .card.disabled {
+  pointer-events: none;
+}
+
 .deck .card.match {
   cursor: default;
   background: #FFBD78;
