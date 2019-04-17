@@ -1,5 +1,9 @@
 let allCards = document.querySelectorAll('.card');
 const cardsParent = document.querySelector('.deck');
+const totalTimeSpent = document.querySelector('#total-time-spent');
+let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
+let closePopup = document.querySelector(".close-popup");
+
 
 const removeOpenAndShow = card => {
   card.classList.remove("open", "show");
@@ -22,18 +26,12 @@ const shuffle = array => {
 }
 
 const showCongratPopup = () => {
-  let showPopup = document.querySelector("#show-popup");
-  let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
   popupTransparentBkg.style.display = "block";
 }
 
-const closeCongratPopup = () => {
-  let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
-  let closePopup = document.querySelector(".close-popup");
-  closePopup.addEventListener('click', function() {
+closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
   });
-}
 
 const startGame = () => {
   // start time once we click on the any first card
@@ -41,16 +39,16 @@ const startGame = () => {
   timerID = setInterval(function() {
     counter += 1;
   });
-  //console.log(timerID); 
-  return timerID;
+  // console.log(`Timer id ${timerID}`); 
+  // console.log(`Counter ${counter}`);
+  return [counter, timerID];
 }
 
-const gameOver = () => {
-  // stops timer
+const gameOver = (counter, timerID) => {
   clearInterval(timerID);
-  // display final score and and time in pop up window
-  //return true;
-  console.log('game has stopped');
+  totalTimeSpent.innerHTML = `${counter}`;// why time is undefined?
+  counter = 0;
+  console.log(`game has stopped with ${counter} count`);
 }
 
 // when clicking on the button on pop up window 'PLAY AGAIN'
@@ -127,9 +125,10 @@ shuffledCards.forEach(function(card) {
             matchedCardsPairs.push(selectedCards[1]);  
 
               if (matchedCardsPairs.length === 16) {
-                  gameOver();
+                  // stop timer
+                  gameOver(); 
                   showCongratPopup();
-                  closeCongratPopup();
+                  // closeCongratPopup();
               }
                 selectedCards.pop();
                 selectedCards.pop();
