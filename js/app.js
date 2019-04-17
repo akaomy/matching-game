@@ -4,7 +4,6 @@ const totalTimeSpent = document.querySelector('#total-time-spent');
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 
-
 const removeOpenAndShow = card => {
   card.classList.remove("open", "show", "disabled");
 }
@@ -29,23 +28,26 @@ const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
 }
 
+// close congrat popup
 closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
 });
+
+let counter = 0;
+let timerID = null;
 
 const startGame = () => {
   let counter = 0;
   timerID = setInterval(function() {
     counter += 1;
-  });
-  return [counter, timerID];
+  }, 1000); 
 }
 
-const gameOver = (counter, timerID) => {
+const gameOver = () => {
+  totalTimeSpent.innerHTML = `${counter}`;
   clearInterval(timerID);
-  totalTimeSpent.innerHTML = `${counter}`;// why time is undefined?
   counter = 0;
-  console.log(`game has stopped with ${counter} count`);
+  //return counter; 
 }
 
 // when clicking on the button on pop up window 'PLAY AGAIN'
@@ -63,7 +65,6 @@ const scoreCounter = () => {
   // start score counter to count how many pair of cards have been open 
   return true;
 }
-
 
 
 shuffle(allCards);
@@ -125,7 +126,6 @@ shuffledCards.forEach(function(card) {
                   // stop timer
                   gameOver(); 
                   showCongratPopup();
-                  // closeCongratPopup();
               }
                 selectedCards.pop();
                 selectedCards.pop();
