@@ -35,9 +35,10 @@ closePopup.addEventListener('click', function() {
 
 let counter = 0;
 let timerID = null;
+let gameStarted = false;
 
 const startGame = () => {
-  let counter = 0;
+  gameStarted = true;
   timerID = setInterval(function() {
     counter += 1;
   }, 1000); 
@@ -47,6 +48,7 @@ const gameOver = () => {
   totalTimeSpent.innerHTML = `${counter}`;
   clearInterval(timerID);
   counter = 0;
+  gameStarted = false;
   //return counter; 
 }
 
@@ -98,8 +100,9 @@ let matchedCardsPairs = [];
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
-    // start timer
-    startGame();
+    if (!gameStarted) {
+      startGame();
+    }
 
     // if this card is already inside the array, it will return index of it
     // if it's not, it will push the card in the array
