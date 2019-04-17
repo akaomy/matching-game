@@ -1,8 +1,9 @@
-let allCards = document.querySelectorAll('.card');
-const cardsParent = document.querySelector('.deck');
-const totalTimeSpent = document.querySelector('#total-time-spent');
+let allCards = document.querySelectorAll(".card");
+const cardsParent = document.querySelector(".deck");
+const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
+let resetBtn = document.querySelectorAll(".reset");
 
 const removeOpenAndShow = card => {
   card.classList.remove("open", "show", "disabled");
@@ -33,34 +34,15 @@ closePopup.addEventListener('click', function() {
     popupTransparentBkg.style.display = "none";
 });
 
-let counter = 0;
+let timerCounter = 0;
 let timerID = null;
 let gameStarted = false;
 
 const startGame = () => {
   gameStarted = true;
   timerID = setInterval(function() {
-    counter += 1;
+    timerCounter += 1;
   }, 1000); 
-}
-
-const gameOver = () => {
-  totalTimeSpent.innerHTML = `${counter}`;
-  clearInterval(timerID);
-  counter = 0;
-  gameStarted = false;
-  //return counter; 
-}
-
-// when clicking on the button on pop up window 'PLAY AGAIN'
-// or when clicking on restart icon under the game title '.restart'
-const resetGame = () => {
-  // clear timer
-  // timeCounter = 0;
-  // clear score
-  // gameScore = 0;
-  // clear opened and matched cards
-  return true;
 }
 
 const scoreCounter = () => {
@@ -68,6 +50,25 @@ const scoreCounter = () => {
   return true;
 }
 
+const gameOver = () => {
+  totalTimeSpent.innerHTML = `${timerCounter}`;
+  clearInterval(timerID);
+  timerCounter = 0;
+  gameStarted = false;
+}
+
+// not finished
+const resetGame = () => {
+  clearInterval(timerID);
+  timerCounter = 0;
+  gameStarted = false;
+  console.log('game has been reset');
+}
+
+// need to run this script after this html btn will be avalible
+resetBtn.addEventListener('click', function() {
+  console.log("game has been reset succeccfully");
+}, false)
 
 shuffle(allCards);
 
@@ -118,10 +119,10 @@ shuffledCards.forEach(function(card) {
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
 
           if (firstSelectedCard === secondSelectedCard) {
-            // put each matched card onto a selected cards array
+            // put each matched card onto a selectedCards array
             cardsMatched(selectedCards[0]);
             cardsMatched(selectedCards[1]);
-            // and put matched cards into an array of matched cards pairs
+            // and also put them into an array of matchedCards pairs
             matchedCardsPairs.push(selectedCards[0]);
             matchedCardsPairs.push(selectedCards[1]);  
 
