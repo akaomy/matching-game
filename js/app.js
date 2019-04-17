@@ -37,13 +37,20 @@ const closeCongratPopup = () => {
 
 const startGame = () => {
   // start time once we click on the any first card
-  return true; 
+  let counter = 0;
+  timerID = setInterval(function() {
+    counter += 1;
+  });
+  //console.log(timerID); 
+  return timerID;
 }
 
 const gameOver = () => {
   // stops timer
+  clearInterval(timerID);
   // display final score and and time in pop up window
-  return true;
+  //return true;
+  console.log('game has stopped');
 }
 
 // when clicking on the button on pop up window 'PLAY AGAIN'
@@ -94,6 +101,9 @@ let matchedCardsPairs = [];
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
+
+    // start timer
+    startGame();
 
     // if this card is already inside the array, it will return index of it
     // if it's not, it will push the card in the array
