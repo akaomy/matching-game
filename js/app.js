@@ -12,11 +12,11 @@ let timerCounter = 0;
 let timerID = null;
 let gameStarted = false;
 
-const removeOpenAndShow = card => {
+const removeOpenAndShowClasses = card => {
   card.classList.remove("open", "show", "disabled");
 }
 
-const addOpenAndShow = card => {
+const addOpenAndShowClasses = card => {
   card.classList.add("open", "show", "disabled");
 }
 
@@ -25,21 +25,26 @@ const addMatchClass = card => {
 }
 
 const matchCards = () => {
-  // add match class to selected cards
   addMatchClass(selectedCards[0]);
   addMatchClass(selectedCards[1]);
-  // and put them into an array of matchedCards pairs
   matchedCardsPairs.push(selectedCards[0]);
   matchedCardsPairs.push(selectedCards[1]); 
   console.log(matchedCardsPairs.length)
 }
 
+const closeUnmatchedCards = () => {
+  removeOpenAndShowClasses(selectedCards[0]);
+  removeOpenAndShowClasses(selectedCards[1]); 
+  selectedCards.pop();
+  selectedCards.pop();
+}
+
 const shuffle = array => {
-    for (let i = array.length - 1; i > 0; i--) {
-        const randomNum = Math.floor(Math.random() * (i + 1));
-        [array[i], array[randomNum]] = [array[randomNum], array[i]];
-    }
-    return array;
+  for (let i = array.length - 1; i > 0; i--) {
+      const randomNum = Math.floor(Math.random() * (i + 1));
+      [array[i], array[randomNum]] = [array[randomNum], array[i]];
+  }
+  return array;
 }
 
 const showCongratPopup = () => {
@@ -48,9 +53,8 @@ const showCongratPopup = () => {
 
 const closeCongratPopup = () => {
   popupTransparentBkg.style.display = "none";
-
 }
-// close congrat popup
+
 closePopup.addEventListener('click', function() {
   closeCongratPopup();
 });
@@ -74,7 +78,6 @@ const stopGame = () => {
   gameStarted = false;
 }
 
-// not finished
 const resetGame = () => {
   clearInterval(timerID); // stop counter
   timerCounter = 0; // reset counter
@@ -117,14 +120,6 @@ When two cards are opened check if they have same class:
 - put them into an array of matched cards
 */
 
-const closeUnmatchedCards = () => {
-  removeOpenAndShow(selectedCards[0]);
-  removeOpenAndShow(selectedCards[1]); 
-  selectedCards.pop();
-  selectedCards.pop();
-}
-
-
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
@@ -139,7 +134,7 @@ shuffledCards.forEach(function(card) {
     }
 
       if (selectedCards.length <= 2 ) {
-        addOpenAndShow(card);
+        addOpenAndShowClasses(card);
 
         if (selectedCards.length === 2) {
           let firstSelectedCard = selectedCards[0].firstElementChild.className;
@@ -149,7 +144,6 @@ shuffledCards.forEach(function(card) {
             matchCards();
 
               if (matchedCardsPairs.length === 16) {
-                  // stop timer
                   stopGame(); 
                   showCongratPopup();
               }
