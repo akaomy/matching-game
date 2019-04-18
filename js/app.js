@@ -4,6 +4,7 @@ const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
+const moves = document.querySelector(".moves");
 
 let selectedCards = [];
 let matchedCardsPairs = [];
@@ -11,6 +12,7 @@ let matchedCardsPairs = [];
 let timerCounter = 0;
 let timerID = null;
 let gameStarted = false;
+let openCardsCounter = 0;
 
 const removeOpenAndShowClasses = card => {
   card.classList.remove("open", "show", "disabled");
@@ -69,9 +71,9 @@ const startGame = () => {
   }, 1000); 
 }
 
-const scoreCounter = () => {
-  // start score counter to count how many pair of cards have been open 
-  return true;
+const showNumberOfMoves = () => {
+  openCardsCounter += 1;
+  moves.innerHTML = `${openCardsCounter}`;
 }
 
 const stopGame = () => {
@@ -86,6 +88,8 @@ const resetGame = () => {
   timerCounter = 0; 
   gameStarted = false; 
   closeCongratPopup(); 
+  openCardsCounter = 0;
+  moves.innerHTML = "0";
 
   for (let i = 0; i < shuffledCards.length; i++) {
     removeOpenAndShowClasses(shuffledCards[i]);
@@ -113,7 +117,6 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
   cardsParent.appendChild(shuffledCards[i]);
 }
 
-openCardsCounter = 0;
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
@@ -132,8 +135,8 @@ shuffledCards.forEach(function(card) {
         if (selectedCards.length === 2) {
           let firstSelectedCard = selectedCards[0].firstElementChild.className;
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
-          openCardsCounter += 1;
-          document.querySelector(".moves").innerHTML = `${openCardsCounter}`;
+          
+          showNumberOfMoves();
 
           if (firstSelectedCard === secondSelectedCard) {
             matchCards();
