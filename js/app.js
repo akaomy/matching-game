@@ -24,12 +24,15 @@ const addMatchClass = card => {
   card.classList.add('match');
 }
 
+const removeMatchClass = card => {
+  card.classList.remove('match');
+}
+
 const matchCards = () => {
   addMatchClass(selectedCards[0]);
   addMatchClass(selectedCards[1]);
   matchedCardsPairs.push(selectedCards[0]);
   matchedCardsPairs.push(selectedCards[1]); 
-  console.log(matchedCardsPairs.length)
 }
 
 const closeUnmatchedCards = () => {
@@ -79,15 +82,16 @@ const stopGame = () => {
 }
 
 const resetGame = () => {
-  clearInterval(timerID); // stop counter
-  timerCounter = 0; // reset counter
-  gameStarted = false; // revert back gameStarted boolean
-  matchedCardsPairs.length = 0; // ? // clear opened, showed and matched cards
-  closeCongratPopup(); // close popup
-  console.log(`stop counter`);
-  console.log(`timecounter = ${timerCounter}`);
-  console.log(`gameStarted = ${gameStarted}`);
-  console.log(`matched cards pairs = ${matchedCardsPairs}`);
+  clearInterval(timerID); 
+  timerCounter = 0; 
+  gameStarted = false; 
+  closeCongratPopup(); 
+
+  for (let i = 0; i < shuffledCards.length; i++) {
+    removeOpenAndShowClasses(shuffledCards[i]);
+    removeMatchClass(shuffledCards[i]);
+  } 
+
 }
 
 resetBtn.forEach(function(button) {
@@ -99,7 +103,7 @@ shuffle(allCards);
 // convert NodeList to an array
 let shuffledCards = shuffle([...allCards]);
 
-//remove unshuffled cards from the parent container
+// remove unshuffled cards from the parent container
 for (let i = 0; i < allCards.length; i ++) {
     cardsParent.removeChild(allCards[i]);
 }
@@ -109,17 +113,6 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
   cardsParent.appendChild(shuffledCards[i]);
 }
 
-/*
-Main game logic:
-Upon initial click check if the array selectedCards contains any cards(items) in it:
-- if there are no open cards: add one
-Upon each next click check if there are 1 or 2 cards are opened:
-- open them, and check if they have same class
-When two cards are opened check if they have same class:
-- if they are: add class 'match'
-- put them into an array of matched cards
-*/
-
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
@@ -127,8 +120,6 @@ shuffledCards.forEach(function(card) {
       startGame();
     }
 
-    // if this card is already inside the array, it will return index of it
-    // if it's not, it will push the card in the array
     if (selectedCards.indexOf(card) === -1) {
       selectedCards.push(card); 
     }
