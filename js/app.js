@@ -5,6 +5,13 @@ let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
 
+let selectedCards = [];
+let matchedCardsPairs = [];
+
+let timerCounter = 0;
+let timerID = null;
+let gameStarted = false;
+
 const removeOpenAndShow = card => {
   card.classList.remove("open", "show", "disabled");
 }
@@ -13,8 +20,18 @@ const addOpenAndShow = card => {
   card.classList.add("open", "show", "disabled");
 }
 
-const cardsMatched = card => {
+const addMatchClass = card => {
   card.classList.add('match');
+}
+
+const matchCards = () => {
+  // add match class to selected cards
+  addMatchClass(selectedCards[0]);
+  addMatchClass(selectedCards[1]);
+  // and put them into an array of matchedCards pairs
+  matchedCardsPairs.push(selectedCards[0]);
+  matchedCardsPairs.push(selectedCards[1]); 
+  console.log(matchedCardsPairs.length)
 }
 
 const shuffle = array => {
@@ -29,14 +46,14 @@ const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
 }
 
+const closeCongratPopup = () => {
+  popupTransparentBkg.style.display = "none";
+
+}
 // close congrat popup
 closePopup.addEventListener('click', function() {
-    popupTransparentBkg.style.display = "none";
+  closeCongratPopup();
 });
-
-let timerCounter = 0;
-let timerID = null;
-let gameStarted = false;
 
 const startGame = () => {
   gameStarted = true;
@@ -62,10 +79,12 @@ const resetGame = () => {
   clearInterval(timerID); // stop counter
   timerCounter = 0; // reset counter
   gameStarted = false; // revert back gameStarted boolean
-  // clear opened, showed and matched cards
+  matchedCardsPairs.length = 0; // ? // clear opened, showed and matched cards
+  closeCongratPopup(); // close popup
   console.log(`stop counter`);
   console.log(`timecounter = ${timerCounter}`);
   console.log(`gameStarted = ${gameStarted}`);
+  console.log(`matched cards pairs = ${matchedCardsPairs}`);
 }
 
 resetBtn.forEach(function(button) {
@@ -97,8 +116,14 @@ When two cards are opened check if they have same class:
 - if they are: add class 'match'
 - put them into an array of matched cards
 */
-let selectedCards = [];
-let matchedCardsPairs = [];
+
+const closeUnmatchedCards = () => {
+  removeOpenAndShow(selectedCards[0]);
+  removeOpenAndShow(selectedCards[1]); 
+  selectedCards.pop();
+  selectedCards.pop();
+}
+
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
@@ -121,12 +146,7 @@ shuffledCards.forEach(function(card) {
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
 
           if (firstSelectedCard === secondSelectedCard) {
-            // put each matched card onto a selectedCards array
-            cardsMatched(selectedCards[0]);
-            cardsMatched(selectedCards[1]);
-            // and also put them into an array of matchedCards pairs
-            matchedCardsPairs.push(selectedCards[0]);
-            matchedCardsPairs.push(selectedCards[1]);  
+            matchCards();
 
               if (matchedCardsPairs.length === 16) {
                   // stop timer
@@ -140,10 +160,7 @@ shuffledCards.forEach(function(card) {
 
               setTimeout(function() {
                 selectedCards.forEach(function() {
-                  removeOpenAndShow(selectedCards[0]);
-                  removeOpenAndShow(selectedCards[1]); 
-                  selectedCards.pop();
-                  selectedCards.pop();
+                  closeUnmatchedCards();
                 })
               }, 500);
           }
@@ -151,3 +168,4 @@ shuffledCards.forEach(function(card) {
      }
   });
 });
+
