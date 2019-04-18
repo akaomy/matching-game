@@ -50,7 +50,7 @@ const scoreCounter = () => {
   return true;
 }
 
-const gameOver = () => {
+const stopGame = () => {
   totalTimeSpent.innerHTML = `${timerCounter}`;
   clearInterval(timerID);
   timerCounter = 0;
@@ -59,16 +59,18 @@ const gameOver = () => {
 
 // not finished
 const resetGame = () => {
-  clearInterval(timerID);
-  timerCounter = 0;
-  gameStarted = false;
-  console.log('game has been reset');
+  clearInterval(timerID); // stop counter
+  timerCounter = 0; // reset counter
+  gameStarted = false; // revert back gameStarted boolean
+  // clear opened, showed and matched cards
+  console.log(`stop counter`);
+  console.log(`timecounter = ${timerCounter}`);
+  console.log(`gameStarted = ${gameStarted}`);
 }
 
-// need to run this script after this html btn will be avalible
-resetBtn.addEventListener('click', function() {
-  console.log("game has been reset succeccfully");
-}, false)
+resetBtn.forEach(function(button) {
+  button.addEventListener('click', resetGame);
+});
 
 shuffle(allCards);
 
@@ -82,7 +84,7 @@ for (let i = 0; i < allCards.length; i ++) {
 
 // add shuffled cards to parent container 
 for (let i = 0; i < shuffledCards.length; i ++ ) {
-	cardsParent.appendChild(shuffledCards[i]);
+  cardsParent.appendChild(shuffledCards[i]);
 }
 
 /*
@@ -128,7 +130,7 @@ shuffledCards.forEach(function(card) {
 
               if (matchedCardsPairs.length === 16) {
                   // stop timer
-                  gameOver(); 
+                  stopGame(); 
                   showCongratPopup();
               }
                 selectedCards.pop();
@@ -145,10 +147,7 @@ shuffledCards.forEach(function(card) {
                 })
               }, 500);
           }
-        } else { // if the cards don't match
-
         }
      }
   });
 });
-

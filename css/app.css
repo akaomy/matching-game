@@ -109,7 +109,7 @@ h1 {
     display: inline-block;
 }
 
-.score-panel .restart {
+.score-panel .reset {
     float: right;
     cursor: pointer;
     font-size: 30px;
@@ -151,4 +151,3 @@ Congratulations popup
   padding: 7px 14px;
   font-weight: bold;
 }
-
