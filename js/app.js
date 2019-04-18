@@ -113,6 +113,8 @@ for (let i = 0; i < shuffledCards.length; i ++ ) {
   cardsParent.appendChild(shuffledCards[i]);
 }
 
+openCardsCounter = 0;
+
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
 
@@ -130,6 +132,8 @@ shuffledCards.forEach(function(card) {
         if (selectedCards.length === 2) {
           let firstSelectedCard = selectedCards[0].firstElementChild.className;
           let secondSelectedCard = selectedCards[1].firstElementChild.className;
+          openCardsCounter += 1;
+          document.querySelector(".moves").innerHTML = `${openCardsCounter}`;
 
           if (firstSelectedCard === secondSelectedCard) {
             matchCards();
