@@ -4,7 +4,7 @@ const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
-const moves = document.querySelector(".moves");
+const moves = document.querySelectorAll(".moves");
 
 let selectedCards = [];
 let matchedCardsPairs = [];
@@ -54,6 +54,7 @@ const shuffle = array => {
 
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
+  showNumberOfMoves();
 }
 
 const closeCongratPopup = () => {
@@ -73,7 +74,9 @@ const startGame = () => {
 
 const showNumberOfMoves = () => {
   openCardsCounter += 1;
-  moves.innerHTML = `${openCardsCounter}`;
+  for (const each of moves) {
+    each.innerHTML = `${openCardsCounter}`;
+  }
 }
 
 const stopGame = () => {
