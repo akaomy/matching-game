@@ -94,17 +94,13 @@ const showNumberOfMoves = () => {
 }
 
 const removeOneStar = () => {
-    
   let lastRemovedStar = ratingStarsArray.pop();
   if (lastRemovedStar) {
     lastRemovedStar.remove('fa fa-star');
   }
-
   if (ratingStarsArray.length === 0) {
-    starsContainer.innerHTML = "0 stars left";
     return;
   }
-
 }
 
 const showCongratPopup = () => {
