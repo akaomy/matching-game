@@ -4,7 +4,8 @@ const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
-const moves = document.querySelectorAll(".moves");
+// const moves = document.querySelectorAll(".moves");
+const moves = document.querySelector(".moves");
 
 let selectedCards = [];
 let matchedCardsPairs = [];
@@ -52,9 +53,21 @@ const shuffle = array => {
   return array;
 }
 
+const removeUnshuffledCards = () => {
+  for (let i = 0; i < allCards.length; i ++) {
+      cardsParent.removeChild(allCards[i]);
+  }  
+}
+
+const addShuffledCards = () => {
+  for (let i = 0; i < shuffledCards.length; i ++ ) {
+    cardsParent.appendChild(shuffledCards[i]);
+  }
+}
+
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
-  showNumberOfMoves();
+  // showNumberOfMoves();
 }
 
 const closeCongratPopup = () => {
@@ -74,9 +87,10 @@ const startGame = () => {
 
 const showNumberOfMoves = () => {
   openCardsCounter += 1;
-  for (const each of moves) {
-    each.innerHTML = `${openCardsCounter}`;
-  }
+  // for (const each of moves) {
+  //   each.innerHTML = `${openCardsCounter}`;
+  // }
+  moves.innerHTML = `${openCardsCounter}`;
 }
 
 const stopGame = () => {
@@ -105,24 +119,20 @@ resetBtn.forEach(function(button) {
   button.addEventListener('click', resetGame);
 });
 
+
 shuffle(allCards);
 
 // convert NodeList to an array
 let shuffledCards = shuffle([...allCards]);
 
-// remove unshuffled cards from the parent container
-for (let i = 0; i < allCards.length; i ++) {
-    cardsParent.removeChild(allCards[i]);
-}
+removeUnshuffledCards();
 
-// add shuffled cards to parent container 
-for (let i = 0; i < shuffledCards.length; i ++ ) {
-  cardsParent.appendChild(shuffledCards[i]);
-}
+addShuffledCards();
 
 
 shuffledCards.forEach(function(card) {
   card.addEventListener('click', function() {
+
 
     if (!gameStarted) {
       startGame();
