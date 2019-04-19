@@ -93,8 +93,8 @@ const showNumberOfMoves = () => {
 }
 
 const removeOneStar = () => {
-  ratingStars.pop(); 
-  console.log(ratingStars);
+  let lastRemovedStar = ratingStars.pop(); 
+  lastRemovedStar.remove('fa fa-star');
 }
 
 const showCongratPopup = () => {
