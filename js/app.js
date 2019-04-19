@@ -4,8 +4,8 @@ const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
-// const moves = document.querySelectorAll(".moves");
-const moves = document.querySelector(".moves");
+const moves = document.querySelectorAll(".moves");
+// const moves = document.querySelector(".moves");
 
 let selectedCards = [];
 let matchedCardsPairs = [];
@@ -84,9 +84,18 @@ const addSecondTimeShuffledCards = (arr) => {
   }
 }
 
+const showNumberOfMoves = () => {
+  openCardsCounter += 1;
+  for (const each of moves) {
+    each.innerHTML = `${openCardsCounter}`;
+    console.log(each);
+  }
+  // moves.innerHTML = `${openCardsCounter}`;
+}
+
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
-  // showNumberOfMoves();
+  showNumberOfMoves();
 }
 
 const closeCongratPopup = () => {
@@ -104,14 +113,6 @@ const startGame = () => {
   }, 1000); 
 }
 
-const showNumberOfMoves = () => {
-  openCardsCounter += 1;
-  // for (const each of moves) {
-  //   each.innerHTML = `${openCardsCounter}`;
-  // }
-  moves.innerHTML = `${openCardsCounter}`;
-}
-
 const stopGame = () => {
   totalTimeSpent.innerHTML = `${timerCounter}`;
   clearInterval(timerID);
@@ -125,9 +126,12 @@ const resetGame = () => {
   gameStarted = false; 
   closeCongratPopup(); 
   openCardsCounter = 0;
-  moves.innerHTML = "0";
+
+  for (let i = 0; i < moves.length; i ++) {
+    moves[i].innerHTML = "0";
+  }
+
   matchedCardsPairs = [];
-  
   removeShuffledCards();
   shuffle(allCards);
   let newlyShuffledCards = shuffle([...allCards]);
