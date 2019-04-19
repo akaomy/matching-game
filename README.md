@@ -3,6 +3,6 @@
 <p align="center">
 <img src="https://user-images.githubusercontent.com/6992753/56011799-26f9bd00-5c9e-11e9-8b6d-c06be25791b1.png" width="550" alt="Matching Game">
 </p>
-<p>current problems to do:
+<p>Todos and bugs log:
   <a href="https://trello.com/b/DxmZk6dZ/matching-game"> trello kanban</a>
 </p>
