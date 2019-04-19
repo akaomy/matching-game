@@ -45,6 +45,15 @@ const closeUnmatchedCards = () => {
   selectedCards.pop();
 }
 
+const closeMatchedCards = () => {
+  removeOpenAndShowClasses(selectedCards[0]);
+  removeOpenAndShowClasses(selectedCards[1]);
+  removeMatchClass(selectedCards[0]);
+  removeMatchClass(selectedCards[1]); 
+  selectedCards.pop();
+  selectedCards.pop();
+}
+
 const shuffle = array => {
   for (let i = array.length - 1; i > 0; i--) {
       const randomNum = Math.floor(Math.random() * (i + 1));
@@ -58,6 +67,18 @@ const removeUnshuffledCards = () => {
       cardsParent.removeChild(allCards[i]);
   }  
 }
+
+const removeShuffledCards = () => {
+    for (let i = 0; i < shuffledCards.length; i ++) {
+    cardsParent.removeChild(shuffledCards[i]);
+  } 
+}
+
+// const addNewlyShuffledCards = () => {
+//    for (let i = 0; i < newlyShuffledCards.length; i ++ ) {
+//     cardsParent.appendChild(newlyShuffledCards[i]);
+//   }
+// }
 
 const addShuffledCards = () => {
   for (let i = 0; i < shuffledCards.length; i ++ ) {
@@ -101,17 +122,28 @@ const stopGame = () => {
 }
 
 const resetGame = () => {
-  clearInterval(timerID); 
+  clearInterval(timerID);
   timerCounter = 0; 
   gameStarted = false; 
   closeCongratPopup(); 
   openCardsCounter = 0;
   moves.innerHTML = "0";
+  
+  closeMatchedCards();
 
-  for (let i = 0; i < shuffledCards.length; i++) {
-    removeOpenAndShowClasses(shuffledCards[i]);
-    removeMatchClass(shuffledCards[i]);
-  } 
+  removeShuffledCards();
+  console.log('remove shuffled cards');
+
+  shuffle(allCards);
+  console.log('shuffle again allCards');
+
+  let newlyShuffledCards = shuffle([...allCards]);
+  console.log('create array of newlyShuffledCards');
+
+  for (let i = 0; i < newlyShuffledCards.length; i ++ ) {
+    cardsParent.appendChild(newlyShuffledCards[i]);
+  }
+  console.log('iterate over each card in newlyShuffledCards and append them to parent container');
 
 }
 
