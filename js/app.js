@@ -7,7 +7,7 @@ let resetBtn = document.querySelectorAll(".reset");
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelector(".show-timer");
 const ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
-const starsContainer = document.querySelector('.stars');
+const starsContainer = document.querySelectorAll('.stars');
 
 let openedCardsArray = [];
 let matchedCardsPairs = [];
@@ -99,6 +99,9 @@ const removeOneStar = () => {
     lastRemovedStar.remove('fa fa-star');
   }
   if (ratingStarsArray.length === 0) {
+    for (const each in starsContainer) {
+      starsContainer[each].innerHTML = "0";
+    }    
     return;
   }
 }
