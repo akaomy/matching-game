@@ -6,7 +6,8 @@ let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelector(".show-timer");
-const ratingStars = [...document.querySelectorAll("i.fa.fa-star")];
+const ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
+const starsContainer = document.querySelector('.stars');
 
 let openedCardsArray = [];
 let matchedCardsPairs = [];
@@ -93,8 +94,17 @@ const showNumberOfMoves = () => {
 }
 
 const removeOneStar = () => {
-  let lastRemovedStar = ratingStars.pop(); 
-  lastRemovedStar.remove('fa fa-star');
+    
+  let lastRemovedStar = ratingStarsArray.pop();
+  if (lastRemovedStar) {
+    lastRemovedStar.remove('fa fa-star');
+  }
+
+  if (ratingStarsArray.length === 0) {
+    starsContainer.innerHTML = "0 stars left";
+    return;
+  }
+
 }
 
 const showCongratPopup = () => {
