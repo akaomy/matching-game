@@ -90,8 +90,8 @@ h1 {
 
 /* score panel styles */
 .score-panel {
-  text-align: left;
-  width: 345px;
+  /*text-align: left;*/
+  width: 420px;
   margin-bottom: 10px;
   color: #336677;
 }
@@ -110,7 +110,7 @@ h1 {
 }
 
 .score-panel .reset {
-    float: right;
+    /*float: right;*/
     cursor: pointer;
     font-size: 30px;
 }
