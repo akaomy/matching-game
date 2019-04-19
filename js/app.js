@@ -126,6 +126,7 @@ const resetGame = () => {
   closeCongratPopup(); 
   openCardsCounter = 0;
   moves.innerHTML = "0";
+  matchedCardsPairs = [];
   
   removeShuffledCards();
   shuffle(allCards);
