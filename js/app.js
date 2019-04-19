@@ -122,6 +122,7 @@ const stopGame = () => {
 const resetGame = () => {
   clearInterval(timerID);
   timerCounter = 0; 
+  timer.innerHTML = "0";
   gameStarted = false; 
   closeCongratPopup(); 
   openCardsCounter = 0;
