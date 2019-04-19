@@ -5,9 +5,10 @@ let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
 const moves = document.querySelectorAll(".moves");
-const timer = document.querySelector('.show-timer');
+const timer = document.querySelector(".show-timer");
+const ratingStars = [...document.querySelectorAll("i.fa.fa-star")];
 
-let selectedCards = [];
+let openedCardsArray = [];
 let matchedCardsPairs = [];
 
 let timerCounter = 0;
@@ -32,17 +33,17 @@ const removeMatchClass = card => {
 }
 
 const matchCards = () => {
-  addMatchClass(selectedCards[0]);
-  addMatchClass(selectedCards[1]);
-  matchedCardsPairs.push(selectedCards[0]);
-  matchedCardsPairs.push(selectedCards[1]); 
+  addMatchClass(openedCardsArray[0]);
+  addMatchClass(openedCardsArray[1]);
+  matchedCardsPairs.push(openedCardsArray[0]);
+  matchedCardsPairs.push(openedCardsArray[1]); 
 }
 
 const closeUnmatchedCards = () => {
-  removeOpenAndShowClasses(selectedCards[0]);
-  removeOpenAndShowClasses(selectedCards[1]); 
-  selectedCards.pop();
-  selectedCards.pop();
+  removeOpenAndShowClasses(openedCardsArray[0]);
+  removeOpenAndShowClasses(openedCardsArray[1]); 
+  openedCardsArray.pop();
+  openedCardsArray.pop();
 }
 
 const closeMatchedCards = (arr) => {
@@ -89,6 +90,11 @@ const showNumberOfMoves = () => {
   for (const each of moves) {
     each.innerHTML = `${openCardsCounter}`;
   }
+}
+
+const removeOneStar = () => {
+  ratingStars.pop(); 
+  console.log(ratingStars);
 }
 
 const showCongratPopup = () => {
@@ -163,18 +169,19 @@ shuffledCards.forEach(function(card) {
       startGame();
     }
 
-    if (selectedCards.indexOf(card) === -1) {
-      selectedCards.push(card); 
+    if (openedCardsArray.indexOf(card) === -1) {
+      openedCardsArray.push(card); 
     }
 
-      if (selectedCards.length <= 2 ) {
+      if (openedCardsArray.length <= 2 ) {
         addOpenAndShowClasses(card);
 
-        if (selectedCards.length === 2) {
-          let firstSelectedCard = selectedCards[0].firstElementChild.className;
-          let secondSelectedCard = selectedCards[1].firstElementChild.className;
-          
+        if (openedCardsArray.length === 2) {
+          removeOneStar();          
           showNumberOfMoves();
+
+          let firstSelectedCard = openedCardsArray[0].firstElementChild.className;
+          let secondSelectedCard = openedCardsArray[1].firstElementChild.className;
 
           if (firstSelectedCard === secondSelectedCard) {
             matchCards();
@@ -183,16 +190,16 @@ shuffledCards.forEach(function(card) {
                   stopGame(); 
                   showCongratPopup();
               }
-                selectedCards.pop();
-                selectedCards.pop();
+                openedCardsArray.pop();
+                openedCardsArray.pop();
 
               } else {
 
               setTimeout(function() {
-                selectedCards.forEach(function() {
+                openedCardsArray.forEach(function() {
                   closeUnmatchedCards();
                 })
-              }, 500);
+              }, 400);
           }
         }
      }
