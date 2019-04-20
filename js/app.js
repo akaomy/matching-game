@@ -6,8 +6,9 @@ let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelector(".show-timer");
-const ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
+let ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
 const starsContainer = document.querySelectorAll('.stars');
+let arrayOfLiElements = [...document.querySelectorAll(".stars li")];
 
 let openedCardsArray = [];
 let matchedCardsPairs = [];
@@ -96,7 +97,8 @@ const showNumberOfMoves = () => {
 const removeOneStar = () => {
   let lastRemovedStar = ratingStarsArray.pop();
   if (lastRemovedStar) {
-    lastRemovedStar.remove('fa fa-star');
+    lastRemovedStar.remove('li');
+    lastRemovedStar.remove('ul');
   }
   if (ratingStarsArray.length === 0) {
     for (const each in starsContainer) {
@@ -105,6 +107,10 @@ const removeOneStar = () => {
     return;
   }
 }
+
+// const removeAllStars = () => {
+
+// }
 
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
@@ -134,6 +140,7 @@ const stopGame = () => {
   gameStarted = false;
 }
 
+
 const resetGame = () => {
   clearInterval(timerID);
   timerCounter = 0; 
@@ -141,10 +148,25 @@ const resetGame = () => {
   gameStarted = false; 
   closeCongratPopup(); 
   openCardsCounter = 0;
+  // reset stars: add back deleted stars
+
+  let scorePanelStars = document.querySelector(".stars");
+
+  for (let i = 0; i < 7; i ++) {
+    let liElement = document.createElement("li");
+    let iElement = document.createElement("i");
+    iElement.className = "fa fa-star"
+    liElement.appendChild(iElement);
+    scorePanelStars.appendChild(liElement);
+  }
 
   for (let i = 0; i < moves.length; i ++) {
     moves[i].innerHTML = "0";
   }
+
+  // upon clickin on reset
+  // delete all existing li elements
+  // and recover all 6 new li elements
 
   matchedCardsPairs = [];
   removeShuffledCards();
