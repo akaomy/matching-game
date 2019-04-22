@@ -21,6 +21,7 @@ let timerCounter = 0;
 let timerID = null;
 let gameStarted = false;
 let openCardsCounter = 0;
+let movesCounter = 0;
 
 const removeOpenAndShowClasses = card => {
   card.classList.remove("open", "show", "disabled");
@@ -99,13 +100,16 @@ const showNumberOfMoves = () => {
 }
 
 const removeOneStar = () => {
-  let lastRemovedStar = ratingStarsArray.pop();
-  if (lastRemovedStar) {
-    lastRemovedStar.remove('li');
-    lastRemovedStar.remove('ul');
-  }
-  if (ratingStarsArray.length === 0) {
-    showZeroStars();
+  if (movesCounter === 3){
+    let lastRemovedStar = ratingStarsArray.pop();
+    if (lastRemovedStar) {
+      lastRemovedStar.remove('li');
+      lastRemovedStar.remove('ul');
+    }
+    if (ratingStarsArray.length === 0) {
+      showZeroStars();
+    }
+    movesCounter = 0;
   }
 }
 
@@ -169,15 +173,9 @@ const resetGame = () => {
   openCardsCounter.innerHTML = "0";
   gameStarted = false; 
   closeCongratPopup(); 
-  //showNumberOfMoves();
   moves.innerHTML = "0";
   matchedCardsPairs = [];
 
-  // add check if there are li already exist or if allStars array is empty
-  // remove them
-  // removeAllStars();
-  // add new stars
-  // createStars();
 
   removeShuffledCards();
   let newlyShuffledCards = shuffle([...allCards]);
@@ -214,8 +212,10 @@ shuffledCards.forEach(function(card) {
         addOpenAndShowClasses(card);
 
         if (openedCardsArray.length === 2) {
-          removeOneStar();          
+          removeOneStar();
           showNumberOfMoves();
+          movesCounter += 1;
+          console.log(movesCounter);
 
           let firstSelectedCard = openedCardsArray[0].firstElementChild.className;
           let secondSelectedCard = openedCardsArray[1].firstElementChild.className;
