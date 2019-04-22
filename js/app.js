@@ -1,14 +1,18 @@
-let allCards = document.querySelectorAll(".card");
+let allCards = [...document.querySelectorAll(".card")];
+let allStars = document.querySelectorAll(".stars li");
+
 const cardsParent = document.querySelector(".deck");
+const starsParent = document.querySelectorAll('.stars');
+
+let ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
+
 const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
+
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelector(".show-timer");
-let ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
-const starsContainer = document.querySelectorAll('.stars');
-let arrayOfLiElements = [...document.querySelectorAll(".stars li")];
 
 let openedCardsArray = [];
 let matchedCardsPairs = [];
@@ -101,12 +105,17 @@ const removeOneStar = () => {
     lastRemovedStar.remove('ul');
   }
   if (ratingStarsArray.length === 0) {
-    for (const each in starsContainer) {
-      starsContainer[each].innerHTML = "0";
-    }    
-    return;
+    showZeroStars();
   }
 }
+
+const showZeroStars = () => {
+  for (const each in starsParent) {
+      starsParent[each].innerHTML = "0";
+    }    
+  return;
+}
+
 
 // const removeAllStars = () => {
 
@@ -148,25 +157,8 @@ const resetGame = () => {
   gameStarted = false; 
   closeCongratPopup(); 
   openCardsCounter = 0;
-  // reset stars: add back deleted stars
 
-  let scorePanelStars = document.querySelector(".stars");
 
-  for (let i = 0; i < 7; i ++) {
-    let liElement = document.createElement("li");
-    let iElement = document.createElement("i");
-    iElement.className = "fa fa-star"
-    liElement.appendChild(iElement);
-    scorePanelStars.appendChild(liElement);
-  }
-
-  for (let i = 0; i < moves.length; i ++) {
-    moves[i].innerHTML = "0";
-  }
-
-  // upon clickin on reset
-  // delete all existing li elements
-  // and recover all 6 new li elements
 
   matchedCardsPairs = [];
   removeShuffledCards();
@@ -184,12 +176,9 @@ resetBtn.forEach(function(button) {
   button.addEventListener('click', resetGame);
 });
 
-shuffle(allCards);
-
-// convert NodeList to an array
-let shuffledCards = shuffle([...allCards]);
-
 removeUnshuffledCards();
+
+let shuffledCards = shuffle(allCards);
 
 addShuffledCards();
 
