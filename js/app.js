@@ -112,6 +112,7 @@ const removeOneStar = () => {
 const removeAllStars = () => {
  for (let i = 0; i < allStars.length; i ++) {
       allStars[i].remove();
+      allStars.pop();
   }
 }
 
@@ -120,6 +121,16 @@ const showZeroStars = () => {
       starsParent[each].innerHTML = "0";
     }    
   return;
+}
+
+const createStars = () => {
+  for (let i = 0; i < 6; i ++) {
+    let liElem = document.createElement("li");
+    let iElem = document.createElement("i");
+    iElem.className = "fa fa-star";
+    liElem.appendChild(iElem);
+    starsParent[0].appendChild(liElem); 
+  }
 }
 
 const showCongratPopup = () => {
@@ -155,15 +166,18 @@ const resetGame = () => {
   timerCounter = 0; 
   timer.innerHTML = "0";
   openCardsCounter = 0;
-  // openCardsCounter.innerHTML = "0";
+  openCardsCounter.innerHTML = "0";
   gameStarted = false; 
   closeCongratPopup(); 
-  showNumberOfMoves();
+  //showNumberOfMoves();
+  moves.innerHTML = "0";
   matchedCardsPairs = [];
 
-  removeAllStars();
-  // create new ones
-  // append then to '.stars container - starsParent'
+  // add check if there are li already exist or if allStars array is empty
+  // remove them
+  // removeAllStars();
+  // add new stars
+  // createStars();
 
   removeShuffledCards();
   let newlyShuffledCards = shuffle([...allCards]);
