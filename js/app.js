@@ -110,15 +110,8 @@ const removeOneStar = () => {
 }
 
 const removeAllStars = () => {
- for (const each of allStars) {
-    // allStars.pop(); // remove element in the array
-    // remove visually li from the array
-    let lastRemovedStar = allStars.pop();
-    if (lastRemovedStar) {
-      // lastRemovedStar.remove('li');
-      lastRemovedStar.remove(each);
-      console.log('stars removed');
-    }
+ for (let i = 0; i < allStars.length; i ++) {
+      allStars[i].remove();
   }
 }
 
@@ -168,7 +161,6 @@ const resetGame = () => {
   showNumberOfMoves();
   matchedCardsPairs = [];
 
-  // remove all stars
   removeAllStars();
   // create new ones
   // append then to '.stars container - starsParent'
