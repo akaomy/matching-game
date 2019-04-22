@@ -1,5 +1,5 @@
 let allCards = [...document.querySelectorAll(".card")];
-let allStars = document.querySelectorAll(".stars li");
+let allStars = [...document.querySelectorAll(".stars li")];
 
 const cardsParent = document.querySelector(".deck");
 const starsParent = document.querySelectorAll('.stars');
@@ -109,17 +109,25 @@ const removeOneStar = () => {
   }
 }
 
+const removeAllStars = () => {
+ for (const each of allStars) {
+    // allStars.pop(); // remove element in the array
+    // remove visually li from the array
+    let lastRemovedStar = allStars.pop();
+    if (lastRemovedStar) {
+      // lastRemovedStar.remove('li');
+      lastRemovedStar.remove(each);
+      console.log('stars removed');
+    }
+  }
+}
+
 const showZeroStars = () => {
   for (const each in starsParent) {
       starsParent[each].innerHTML = "0";
     }    
   return;
 }
-
-
-// const removeAllStars = () => {
-
-// }
 
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
@@ -149,23 +157,26 @@ const stopGame = () => {
   gameStarted = false;
 }
 
-
 const resetGame = () => {
   clearInterval(timerID);
   timerCounter = 0; 
   timer.innerHTML = "0";
+  openCardsCounter = 0;
+  // openCardsCounter.innerHTML = "0";
   gameStarted = false; 
   closeCongratPopup(); 
-  openCardsCounter = 0;
-
-
-
+  showNumberOfMoves();
   matchedCardsPairs = [];
+
+  // remove all stars
+  removeAllStars();
+  // create new ones
+  // append then to '.stars container - starsParent'
+
   removeShuffledCards();
-  shuffle(allCards);
   let newlyShuffledCards = shuffle([...allCards]);
   closeMatchedCards(newlyShuffledCards);
-
+  // append newly shuffled cards
   for (let i = 0; i < newlyShuffledCards.length; i ++ ) {
     cardsParent.appendChild(newlyShuffledCards[i]);
   }
