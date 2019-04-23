@@ -1,16 +1,12 @@
 let allCards = [...document.querySelectorAll(".card")];
 let allStars = [...document.querySelectorAll(".stars li")];
-
-const cardsParent = document.querySelector(".deck");
-const starsParent = document.querySelectorAll('.stars');
-
-let ratingStarsArray = [...document.querySelectorAll("i.fa.fa-star")];
-
-const totalTimeSpent = document.querySelector("#total-time-spent");
 let popupTransparentBkg = document.querySelector(".congrat-popup-bkg");
 let closePopup = document.querySelector(".close-popup");
 let resetBtn = document.querySelectorAll(".reset");
 
+const cardsParent = document.querySelector(".deck");
+const starsParent = document.querySelectorAll('.stars');
+const totalTimeSpent = document.querySelector("#total-time-spent");
 const moves = document.querySelectorAll(".moves");
 const timer = document.querySelector(".show-timer");
 
@@ -100,24 +96,26 @@ const showNumberOfMoves = () => {
 }
 
 const removeOneStar = () => {
-  if (movesCounter === 3){
-    let lastRemovedStar = ratingStarsArray.pop();
-    if (lastRemovedStar) {
-      lastRemovedStar.remove('li');
-      lastRemovedStar.remove('ul');
+ starsParent.forEach(function(container){
+  starsList = container.querySelectorAll('.fa-star'); // NodeList of stars in the ul
+    if (starsList.length) { // if there is at least one, this will be true
+      const starToRemove = container.querySelector('li');
+      container.removeChild(starToRemove);
     }
-    if (ratingStarsArray.length === 0) {
-      showZeroStars();
-    }
-    movesCounter = 0;
-  }
+ })
 }
 
-const removeAllStars = () => {
- for (let i = 0; i < allStars.length; i ++) {
-      allStars[i].remove();
-      allStars.pop();
-  }
+const resetAllStars = () => {
+  starsParent.forEach(function(container){
+    container.innerHTML = "";
+    for (let i = 0; i < 3; i++) {
+      const liElem = document.createElement('li');
+      const iElem = document.createElement('i');
+      iElem.classList.add('fa', 'fa-star');
+      liElem.appendChild(iElem);
+      container.appendChild(liElem);
+    }
+  })
 }
 
 const showZeroStars = () => {
@@ -125,16 +123,6 @@ const showZeroStars = () => {
       starsParent[each].innerHTML = "0";
     }    
   return;
-}
-
-const createStars = () => {
-  for (let i = 0; i < 6; i ++) {
-    let liElem = document.createElement("li");
-    let iElem = document.createElement("i");
-    iElem.className = "fa fa-star";
-    liElem.appendChild(iElem);
-    starsParent[0].appendChild(liElem); 
-  }
 }
 
 const showCongratPopup = () => {
@@ -172,19 +160,21 @@ const resetGame = () => {
   openCardsCounter = 0;
   openCardsCounter.innerHTML = "0";
   gameStarted = false; 
-  closeCongratPopup(); 
   moves.innerHTML = "0";
   matchedCardsPairs = [];
 
+  resetAllStars();
+  resetAllCards();
+  closeCongratPopup(); 
+}
 
+const resetAllCards = () => {
   removeShuffledCards();
   let newlyShuffledCards = shuffle([...allCards]);
   closeMatchedCards(newlyShuffledCards);
-  // append newly shuffled cards
   for (let i = 0; i < newlyShuffledCards.length; i ++ ) {
     cardsParent.appendChild(newlyShuffledCards[i]);
   }
-
 }
 
 resetBtn.forEach(function(button) {
@@ -212,10 +202,12 @@ shuffledCards.forEach(function(card) {
         addOpenAndShowClasses(card);
 
         if (openedCardsArray.length === 2) {
-          removeOneStar();
+          if (movesCounter === 8) {
+            removeOneStar();
+            movesCounter = 0;
+          }
           showNumberOfMoves();
           movesCounter += 1;
-          console.log(movesCounter);
 
           let firstSelectedCard = openedCardsArray[0].firstElementChild.className;
           let secondSelectedCard = openedCardsArray[1].firstElementChild.className;
@@ -236,7 +228,7 @@ shuffledCards.forEach(function(card) {
                 openedCardsArray.forEach(function() {
                   closeUnmatchedCards();
                 })
-              }, 400);
+              }, 500);
           }
         }
      }
