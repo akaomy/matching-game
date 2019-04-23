@@ -21,40 +21,40 @@ let movesCounter = 0;
 
 const removeOpenAndShowClasses = card => {
   card.classList.remove("open", "show", "disabled");
-}
+};
 
 const addOpenAndShowClasses = card => {
   card.classList.add("open", "show", "disabled");
-}
+};
 
 const addMatchClass = card => {
   card.classList.add('match');
-}
+};
 
 const removeMatchClass = card => {
   card.classList.remove('match');
-}
+};
 
 const matchCards = () => {
   addMatchClass(openedCardsArray[0]);
   addMatchClass(openedCardsArray[1]);
   matchedCardsPairs.push(openedCardsArray[0]);
   matchedCardsPairs.push(openedCardsArray[1]); 
-}
+};
 
 const closeUnmatchedCards = () => {
   removeOpenAndShowClasses(openedCardsArray[0]);
   removeOpenAndShowClasses(openedCardsArray[1]); 
   openedCardsArray.pop();
   openedCardsArray.pop();
-}
+};
 
 const closeMatchedCards = (arr) => {
   arr.forEach(card => {
     removeOpenAndShowClasses(card);
     removeMatchClass(card);
   });
-}
+};
 
 const shuffle = array => {
   for (let i = array.length - 1; i > 0; i--) {
@@ -62,38 +62,38 @@ const shuffle = array => {
       [array[i], array[randomNum]] = [array[randomNum], array[i]];
   }
   return array;
-}
+};
 
 const removeUnshuffledCards = () => {
   for (let i = 0; i < allCards.length; i ++) {
       cardsParent.removeChild(allCards[i]);
   }  
-}
+};
 
 const removeShuffledCards = () => {
     for (let i = 0; i < shuffledCards.length; i ++) {
     cardsParent.removeChild(shuffledCards[i]);
   } 
-}
+};
 
 const addShuffledCards = () => {
   for (let i = 0; i < shuffledCards.length; i ++ ) {
     cardsParent.appendChild(shuffledCards[i]);
   }
-}
+};
 
 const addSecondTimeShuffledCards = (arr) => {
   for (let i = 0; i < arr.length; i ++ ) {
     cardsParent.appendChild(arr[i]);
   }
-}
+};
 
 const showNumberOfMoves = () => {
   openCardsCounter += 1;
   for (const each of moves) {
     each.innerHTML = `${openCardsCounter}`;
   }
-}
+};
 
 const removeOneStar = () => {
  starsParent.forEach(function(container){
@@ -103,7 +103,7 @@ const removeOneStar = () => {
       container.removeChild(starToRemove);
     }
  })
-}
+};
 
 const resetAllStars = () => {
   starsParent.forEach(function(container){
@@ -116,23 +116,16 @@ const resetAllStars = () => {
       container.appendChild(liElem);
     }
   })
-}
-
-const showZeroStars = () => {
-  for (const each in starsParent) {
-      starsParent[each].innerHTML = "0";
-    }    
-  return;
-}
+};
 
 const showCongratPopup = () => {
   popupTransparentBkg.style.display = "block";
   showNumberOfMoves();
-}
+};
 
 const closeCongratPopup = () => {
   popupTransparentBkg.style.display = "none";
-}
+};
 
 closePopup.addEventListener('click', function() {
   closeCongratPopup();
@@ -144,14 +137,14 @@ const startGame = () => {
     timerCounter += 1;
     timer.innerHTML = `${timerCounter}`;
   }, 1000); 
-}
+};
 
 const stopGame = () => {
   totalTimeSpent.innerHTML = `${timerCounter}`;
   clearInterval(timerID);
   timerCounter = 0;
   gameStarted = false;
-}
+};
 
 const resetGame = () => {
   clearInterval(timerID);
@@ -166,7 +159,7 @@ const resetGame = () => {
   resetAllStars();
   resetAllCards();
   closeCongratPopup(); 
-}
+};
 
 const resetAllCards = () => {
   removeShuffledCards();
@@ -175,7 +168,7 @@ const resetAllCards = () => {
   for (let i = 0; i < newlyShuffledCards.length; i ++ ) {
     cardsParent.appendChild(newlyShuffledCards[i]);
   }
-}
+};
 
 resetBtn.forEach(function(button) {
   button.addEventListener('click', resetGame);
@@ -202,7 +195,7 @@ shuffledCards.forEach(function(card) {
         addOpenAndShowClasses(card);
 
         if (openedCardsArray.length === 2) {
-          if (movesCounter === 8) {
+          if (movesCounter === 10) {
             removeOneStar();
             movesCounter = 0;
           }

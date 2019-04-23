@@ -40,8 +40,8 @@ h1 {
 
 /* Deck styles*/
 .deck {
-  width: 660px;
-  min-height: 680px;
+  width: 650px;
+  min-height: 650px;
   background: linear-gradient(160deg,#F2F094 20%, #68C1DF 80%);
   padding: 32px;
   border-radius: 20px;
@@ -51,7 +51,6 @@ h1 {
   justify-content: space-between;
   align-items: center;
   margin: 0 0 3em;
-
 }
 
 .deck .card {
