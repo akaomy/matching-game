@@ -13,5 +13,5 @@ This project was created based on given functional and code quality specificatio
   * Timer: once game starts displayed time starts, when game stops timer stops.
   * Moves: game displays moves counter.
 
-Todos and bugs log:
+### Todos and bugs log:
   * [trello kanban](https://trello.com/b/DxmZk6dZ/matching-game)
