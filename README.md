@@ -12,6 +12,8 @@ This project was created based on given functional and code quality specificatio
   * Restart button: resets the game board, the timer, and the star rating.
   * Timer: once game starts displayed time starts, when game stops timer stops.
   * Moves: game displays moves counter.
+*Project supports only following screen sizes: iPhones 6,6s,7,8 and 6 - 8 iPhone Pluse *
+
 
 ### Todos and bugs log:
   * [trello kanban](https://trello.com/b/DxmZk6dZ/matching-game)
