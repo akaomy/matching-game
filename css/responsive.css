@@ -1,0 +1,59 @@
+/* ----------- iPhone 6, 6S, 7 and 8 ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 375px) 
+  and (max-device-width: 667px) 
+  and (-webkit-min-device-pixel-ratio: 2) { 
+
+  	.deck {
+		width: 90%;
+		min-height: 90%;
+		padding: 15px;
+	}
+
+	.deck .card {
+		height: 70px;
+		width: 70px;
+		margin: 2px;
+	}
+
+	.deck .card.show {
+  	  	font-size: 32px;
+	}
+
+	.score-panel {
+		margin-left: 50px;
+	}
+
+	h1 {
+		font-size: 1.8em;
+	}
+
+}
+
+/* ----------- iPhone 6, 7 and 8 Plus ----------- */
+
+/* Portrait and Landscape */
+@media only screen 
+  and (min-device-width: 414px) 
+  and (max-device-width: 736px) 
+  and (-webkit-min-device-pixel-ratio: 3) { 
+	
+	.deck {
+	  width: 90%;
+	  min-height: 90%;
+	  padding: 25px;
+	}
+
+	.deck .card {
+	  height: 75px;
+	  width: 75px;
+	  margin: 2px;
+	}
+
+	.deck .card.show {
+  	  font-size: 35px;
+	}
+}
+
