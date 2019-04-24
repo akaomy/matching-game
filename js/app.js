@@ -195,7 +195,7 @@ shuffledCards.forEach(function(card) {
         addOpenAndShowClasses(card);
 
         if (openedCardsArray.length === 2) {
-          if (movesCounter === 10) {
+          if (movesCounter === 3) {
             removeOneStar();
             movesCounter = 0;
           }
