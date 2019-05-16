@@ -149,3 +149,12 @@ Congratulations popup
   padding: 7px 14px;
   font-weight: bold;
 }
+
+.action-btns {
+  background-color: #336677;
+  color: white;
+  font-weight: 600;
+  margin-top: 6px;
+  font-size: 1.1em;
+  border-radius: 8px;
+}

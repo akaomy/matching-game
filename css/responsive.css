@@ -30,6 +30,14 @@
 		font-size: 1.8em;
 	}
 
+	.congrat-popup {
+		max-width: 350px;
+	}
+
+	.congrat-popup h1 {
+		font-size: 1.4em;
+	}
+
 }
 
 /* ----------- iPhone 6, 7 and 8 Plus ----------- */
@@ -54,6 +62,14 @@
 
 	.deck .card.show {
   	  font-size: 34px;
+	}
+
+	.congrat-popup {
+		max-width: 400px;
+	}
+
+	.congrat-popup h1 {
+		font-size: 1.2em;
 	}
 }
 
