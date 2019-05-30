@@ -2,7 +2,7 @@
 ![Image](https://user-images.githubusercontent.com/6992753/56011799-26f9bd00-5c9e-11e9-8b6d-c06be25791b1.png?raw=true)
 
 ## Project Description:
-This project was created based on given functional and code quality specifications of udacity Front End project 2 track.
+This project was created based on given functional requirements and code quality specifications of udacity Front End project 2 track.
 [Live preview: Here](https://akaomy.github.io/matching-game/)
 
 ### Main game logic:
