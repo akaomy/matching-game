@@ -3,7 +3,8 @@
 
 ## Project Description:
 This project was created based on given functional requirements and code quality specifications of udacity Front End project 2 track.
-[Live preview: Here](https://akaomy.github.io/matching-game/)
+
+### [Live preview:](https://akaomy.github.io/matching-game/)
 
 ### Main game logic:
   * Shuffle: The game randomly shuffles the cards. A user wins once all cards have successfully been matched.
